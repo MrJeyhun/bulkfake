@@ -23,7 +23,7 @@ const App = () => {
     <AppContext.Provider value={contextValues}>
       <div className="flex h-full">
         <Sidebar />
-        <div className="flex-1 w-[80%] p-8 overflow-scroll">
+        <div className="flex-1 w-[80%] p-8">
           <Main />
         </div>
       </div>

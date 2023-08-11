@@ -2,17 +2,19 @@ import { useContext, useEffect, useState } from "react";
 import Counter from "./Counter";
 import { CounterType, Regions } from "@app/types/enums";
 import { AppContext } from "@app/pages/App";
+import { faker } from "@faker-js/faker";
 
 const Sidebar = () => {
   const { errorRange, setErrorRange, seed, setSeed, region, setRegion } =
     useContext<any>(AppContext);
 
-  // const [errorRange, setErrorRange] = useState(0);
-  // const [seed, setSeed] = useState(0);
-  // const [region, setRegion] = useState<Regions | string>();
-
   const handleSliderChange = (event: any) => {
     setErrorRange(+event.target.value);
+  };
+
+  const getRandomSeed = () => {
+    setSeed(faker.datatype.number({ max: 30000 }));
+    if (seed > 30000) setSeed(30000);
   };
 
   return (
@@ -43,6 +45,7 @@ const Sidebar = () => {
             <option value={Regions.US}>{Regions.US}</option>
             <option value={Regions.GE}>{Regions.GE}</option>
             <option value={Regions.PL}>{Regions.PL}</option>
+            <option value={Regions.AZ}>{Regions.AZ}</option>
           </select>
         </div>
         <div className="flex pt-10 justify-between flex-col">
@@ -84,7 +87,10 @@ const Sidebar = () => {
           />
         </div>
         <div className="mt-3">
-          <button className="w-full bg-trasparent border border-[#16ad65] text-[#16ad65] py-2 px-4 rounded hover:shadow-lg focus:outline-none focus:ring focus:ring-blue-300 rounded-[5px] transition ease-out delay-120">
+          <button
+            onClick={getRandomSeed}
+            className="w-full bg-trasparent border border-[#16ad65] text-[#16ad65] py-2 px-4 rounded hover:shadow-lg focus:outline-none focus:ring focus:ring-blue-300 rounded-[5px] transition ease-out delay-120"
+          >
             Generate new seed
           </button>
         </div>
