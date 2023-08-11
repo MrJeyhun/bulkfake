@@ -6,12 +6,8 @@ import { AppContext } from "./App";
 import Table from "@app/components/Table";
 
 const Main = () => {
-  const { errorRange, seed, region } = useContext<any>(AppContext);
+  const { errorRange, seed, region, csvData } = useContext<any>(AppContext);
   const [pages, setPages] = useState(1);
-
-  useEffect(() => {
-    console.log("pages: " + pages);
-  }, [pages]);
 
   const finalData: any = [];
   faker.seed(Number(seed));
@@ -186,12 +182,10 @@ const Main = () => {
     for (let i = 0; i < pages; i++) {
       finalData.push(...createFakeDatas());
     }
-
     return addErrors(finalData);
   };
 
   const handleScroll = (e: any) => {
-    console.log("here");
     if (e.target.scrollHeight - e.target.scrollTop <= e.target.clientHeight)
       setPages(pages + 1);
   };
