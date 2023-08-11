@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Counter from "./Counter";
 import { CounterType, Regions } from "@app/types/enums";
 
 const Sidebar = () => {
   const [errorRange, setErrorRange] = useState(0);
   const [seed, setSeed] = useState(0);
-  const [region, setRegion] = useState<Regions>();
+  const [region, setRegion] = useState<Regions | string>();
 
   const handleSliderChange = (event: any) => {
     setErrorRange(+event.target.value);
@@ -31,6 +31,9 @@ const Sidebar = () => {
             name="region"
             className="mt-1 block w-full py-2 px-3 border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             value={region}
+            onChange={(e) => {
+              setRegion(e.target.value);
+            }}
           >
             <option value="">Select a region</option>
             <option value={Regions.US}>{Regions.US}</option>
