@@ -1,17 +1,20 @@
 import { useState } from "react";
 import Counter from "./Counter";
+import { CounterType, Regions } from "@app/types/enums";
 
 const Sidebar = () => {
-  const [rangeValue, setRangeValue] = useState(50);
+  const [errorRange, setErrorRange] = useState(0);
+  const [seed, setSeed] = useState(0);
+  const [region, setRegion] = useState<Regions>();
 
   const handleSliderChange = (event: any) => {
-    setRangeValue(event.target.value);
+    setErrorRange(+event.target.value);
   };
 
   return (
     <div className="h-full bg-white w-1/4 p-6 border-l border-gray-300">
-      <div id="test" className="flex mb-4 text-2xl">
-        BulkFake
+      <div id="test" className="flex mb-4 text-2xl font-semibold">
+        BULKFAKE
       </div>
       <div className="mb-4 pt-10 h-2/3">
         <div className="flex pl-[3px]">
@@ -27,37 +30,60 @@ const Sidebar = () => {
             id="region"
             name="region"
             className="mt-1 block w-full py-2 px-3 border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            value=""
+            value={region}
           >
             <option value="">Select a region</option>
-            <option value="north">North</option>
-            <option value="south">South</option>
-            <option value="east">East</option>
-            <option value="west">West</option>
+            <option value={Regions.US}>{Regions.US}</option>
+            <option value={Regions.GE}>{Regions.GE}</option>
+            <option value={Regions.PL}>{Regions.PL}</option>
           </select>
         </div>
-        <div className="flex pt-10 justify-between">
+        <div className="flex pt-10 justify-between flex-col">
           <label
-            className="block text-sm font-medium text-gray-700"
+            className="block text-sm font-medium text-gray-700 self-start"
             htmlFor="errorRange"
           >
             Select number of errors
           </label>
-          <Counter />
+          <Counter
+            count={errorRange}
+            setCount={setErrorRange}
+            counterType={CounterType.ERRORCOUNTER}
+          />
         </div>
         <div className="mt-2">
           <input
             type="range"
+            step="0.5"
             min="0"
-            max="100"
-            value={rangeValue}
+            max="1000"
+            value={errorRange}
             onChange={handleSliderChange}
             className="w-full border-[0px] h-[5px] accent-[seagreen]"
           />
         </div>
+
+        <div className="flex pt-10 justify-between flex-col">
+          <label
+            className="block text-sm font-medium text-gray-700 self-start"
+            htmlFor="seedGenerator"
+          >
+            Current seed
+          </label>
+          <Counter
+            count={seed}
+            setCount={setSeed}
+            counterType={CounterType.SEEDCOUNTER}
+          />
+        </div>
+        <div className="mt-3">
+          <button className="w-full bg-trasparent border border-[#16ad65] text-[#16ad65] py-2 px-4 rounded hover:shadow-lg focus:outline-none focus:ring focus:ring-blue-300 rounded-[5px] transition ease-out delay-120">
+            Generate new seed
+          </button>
+        </div>
       </div>
       <div className="flex items-end h-1/4">
-        <button className="w-full bg-[#16ad65] text-white py-2 px-4 rounded hover:bg-green-600 focus:outline-none focus:ring focus:ring-blue-300 rounded-[5px]">
+        <button className="w-full bg-[#16ad65] text-white py-2 px-4 rounded hover:bg-green-600 focus:outline-none focus:ring focus:ring-blue-300 rounded-[5px] transition ease-out delay-120">
           Export CVS
         </button>
       </div>
