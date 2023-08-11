@@ -1,13 +1,17 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { createFakeData } from "@app/utils";
 import { faker } from "@faker-js/faker";
-import { RegionCode, Regions } from "@app/types/enums";
+import { FakerTypes, RegionCode, Regions } from "@app/types/enums";
 import { AppContext } from "./App";
 import Table from "@app/components/Table";
 
 const Main = () => {
   const { errorRange, seed, region } = useContext<any>(AppContext);
   const [pages, setPages] = useState(1);
+
+  useEffect(() => {
+    console.log("pages: " + pages);
+  }, [pages]);
 
   const finalData: any = [];
   faker.seed(Number(seed));
@@ -35,6 +39,9 @@ const Main = () => {
         break;
       case Regions.PL:
         faker.setLocale(RegionCode.POLAND);
+        break;
+      case Regions.AZ:
+        faker.setLocale(RegionCode.AZ);
         break;
     }
 
@@ -72,12 +79,20 @@ const Main = () => {
         faker.datatype.number({ max: s.length - 3 });
       let charToAdd;
 
-      //TODO: change to switch case
-      if (type === "id") charToAdd = faker.random.alpha(1);
-      if (type === "name") charToAdd = randomName[randomCharacter(randomName)];
-      if (type === "address")
-        charToAdd = randomStreet[randomCharacter(randomStreet)];
-      if (type === "num") charToAdd = faker.datatype.number({ min: 0, max: 9 });
+      switch (type) {
+        case FakerTypes.ID:
+          charToAdd = faker.random.alpha(1);
+          break;
+        case FakerTypes.NAME:
+          charToAdd = randomName[randomCharacter(randomName)];
+          break;
+        case FakerTypes.ADDRESS:
+          charToAdd = randomStreet[randomCharacter(randomStreet)];
+          break;
+        case FakerTypes.NUMBER:
+          charToAdd = faker.datatype.number({ min: 0, max: 9 });
+          break;
+      }
 
       const updatedString =
         lastIteration.substring(0, whereToAdd) +
@@ -176,10 +191,8 @@ const Main = () => {
   };
 
   const handleScroll = (e: any) => {
-    if (
-      e.target.scrollHeight - e.target.scrollTop <=
-      e.target.clientHeight / 0.5
-    )
+    console.log("here");
+    if (e.target.scrollHeight - e.target.scrollTop <= e.target.clientHeight)
       setPages(pages + 1);
   };
 

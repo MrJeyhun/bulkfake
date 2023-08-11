@@ -2,28 +2,13 @@ import { TableProps } from "@app/types/types";
 
 const Table = (props: TableProps) => {
   const { fakeDatas, handleScroll } = props;
-
-  const getFakeData = () => {
-    return fakeDatas.map((el: any, i) => {
-      return (
-        <tr
-          key={i}
-          className="border-b transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-neutral-500 dark:hover:bg-neutral-600"
-        >
-          <th className="whitespace-nowrap px-6 py-4 font-medium" scope="row">
-            {i + 1}
-          </th>
-          <td className="whitespace-nowrap px-6 py-4">{el.id}</td>
-          <td className="whitespace-nowrap px-6 py-4">{el.fullName}</td>
-          <td className="whitespace-nowrap px-6 py-4">{el.address}</td>
-          <td className="whitespace-nowrap px-6 py-4">{el.phone}</td>
-        </tr>
-      );
-    });
-  };
+  console.log("fakeDatas", fakeDatas);
 
   return (
-    <div className="flex flex-col">
+    <div
+      className="flex flex-col h-[95vh] overflow-scroll"
+      onScroll={() => console.log("works here")}
+    >
       <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
           <div className="overflow-hidden">
@@ -47,7 +32,29 @@ const Table = (props: TableProps) => {
                   </th>
                 </tr>
               </thead>
-              <tbody>{getFakeData()}</tbody>
+              <tbody>
+                {fakeDatas.map((el: any, i) => (
+                  <tr
+                    key={i}
+                    className="border-b transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-neutral-500 dark:hover:bg-neutral-600"
+                  >
+                    <th
+                      className="whitespace-nowrap px-6 py-4 font-medium"
+                      scope="row"
+                    >
+                      {i + 1}
+                    </th>
+                    <td className="whitespace-nowrap px-6 py-4">{el.id}</td>
+                    <td className="whitespace-nowrap px-6 py-4">
+                      {el.fullName}
+                    </td>
+                    <td className="whitespace-nowrap px-6 py-4">
+                      {el.address}
+                    </td>
+                    <td className="whitespace-nowrap px-6 py-4">{el.phone}</td>
+                  </tr>
+                ))}
+              </tbody>
             </table>
           </div>
         </div>
