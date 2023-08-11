@@ -8,3 +8,9 @@ export enum Regions {
   GE = "Germany",
   PL = "Poland",
 }
+
+export enum RegionCode {
+  USA = "en_US",
+  GERMANY = "de",
+  POLAND = "pl",
+}
