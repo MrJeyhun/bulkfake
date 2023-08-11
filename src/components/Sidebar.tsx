@@ -3,10 +3,23 @@ import Counter from "./Counter";
 import { CounterType, Regions } from "@app/types/enums";
 import { AppContext } from "@app/pages/App";
 import { faker } from "@faker-js/faker";
+import { CSVLink } from "react-csv";
 
 const Sidebar = () => {
-  const { errorRange, setErrorRange, seed, setSeed, region, setRegion } =
-    useContext<any>(AppContext);
+  const {
+    errorRange,
+    setErrorRange,
+    seed,
+    setSeed,
+    region,
+    setRegion,
+    csvData,
+  } = useContext<any>(AppContext);
+
+  useEffect(() => {
+    console.log("csvData is ARRAY: ", Array.isArray(csvData.current));
+    console.log("CSVDATA: ", csvData.current);
+  });
 
   const handleSliderChange = (event: any) => {
     setErrorRange(+event.target.value);
@@ -89,16 +102,20 @@ const Sidebar = () => {
         <div className="mt-3">
           <button
             onClick={getRandomSeed}
-            className="w-full bg-trasparent border border-[#16ad65] text-[#16ad65] py-2 px-4 rounded hover:shadow-lg focus:outline-none focus:ring focus:ring-blue-300 rounded-[5px] transition ease-out delay-120"
+            className="w-full bg-trasparent border border-[#16ad65] text-[#16ad65] py-2 px-4 rounded hover:bg-[#E8F7F0] focus:outline-none focus:ring focus:ring-blue-300 rounded-[5px] transition ease-out delay-120"
           >
             Generate new seed
           </button>
         </div>
       </div>
       <div className="flex items-end h-1/4">
-        <button className="w-full bg-[#16ad65] text-white py-2 px-4 rounded hover:bg-green-600 focus:outline-none focus:ring focus:ring-blue-300 rounded-[5px] transition ease-out delay-120">
+        <CSVLink
+          data={csvData.current && csvData.current}
+          filename={"BulkFake.csv"}
+          className="w-full bg-[#16ad65] text-white py-2 px-4 rounded hover:bg-green-600 focus:outline-none focus:ring focus:ring-blue-300 rounded-[5px] transition ease-out delay-120"
+        >
           Export CVS
-        </button>
+        </CSVLink>
       </div>
     </div>
   );
