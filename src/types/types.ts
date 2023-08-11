@@ -8,5 +8,5 @@ export interface CounterProps {
 
 export interface TableProps {
   fakeDatas: [];
-  handleScroll: void;
+  handleScroll: any;
 }

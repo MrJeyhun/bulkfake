@@ -1,42 +1,57 @@
 import { TableProps } from "@app/types/types";
 
 const Table = (props: TableProps) => {
-  // onScroll={props.scrollHandler}
-  return (
-    <div className="entries-parent">
-      <table>
-        <tr>
-          <th className="table-index" scope="col">
-            Index
-          </th>
-          <th className="table-id" scope="col">
-            ID
-          </th>
-          <th className="table-name" scope="col">
-            Full name
-          </th>
-          <th className="table-address" scope="col">
-            Address
-          </th>
-          <th className="table-phone" scope="col">
-            Phone number
-          </th>
-        </tr>
+  const { fakeDatas, handleScroll } = props;
 
-        {/* {
-            props.fakeEntries.map((el, i) => {
-                return (
-                  <tr>
-                    <th scope='row'>{i + 1}</th>
-                    <td>{el.id}</td>
-                    <td>{el.fullName}</td>
-                    <td>{el.address}</td>
-                    <td>{el.phone}</td>
-                  </tr>
-                );
-              });
-        } */}
-      </table>
+  const getFakeData = () => {
+    return fakeDatas.map((el: any, i) => {
+      return (
+        <tr
+          key={i}
+          className="border-b transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-neutral-500 dark:hover:bg-neutral-600"
+        >
+          <th className="whitespace-nowrap px-6 py-4 font-medium" scope="row">
+            {i + 1}
+          </th>
+          <td className="whitespace-nowrap px-6 py-4">{el.id}</td>
+          <td className="whitespace-nowrap px-6 py-4">{el.fullName}</td>
+          <td className="whitespace-nowrap px-6 py-4">{el.address}</td>
+          <td className="whitespace-nowrap px-6 py-4">{el.phone}</td>
+        </tr>
+      );
+    });
+  };
+
+  return (
+    <div className="flex flex-col">
+      <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
+        <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+          <div className="overflow-hidden">
+            <table className="min-w-full text-left text-sm font-light">
+              <thead className="border-b font-medium dark:border-neutral-500">
+                <tr>
+                  <th scope="col" className="px-6 py-4">
+                    #
+                  </th>
+                  <th scope="col" className="px-6 py-4">
+                    Id
+                  </th>
+                  <th scope="col" className="px-6 py-4">
+                    Full name
+                  </th>
+                  <th scope="col" className="px-6 py-4">
+                    Address
+                  </th>
+                  <th scope="col" className="px-6 py-4">
+                    Phone number
+                  </th>
+                </tr>
+              </thead>
+              <tbody>{getFakeData()}</tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

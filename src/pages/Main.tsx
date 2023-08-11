@@ -1,14 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { createFakeData } from "@app/utils";
 import { faker } from "@faker-js/faker";
 import { RegionCode, Regions } from "@app/types/enums";
+import { AppContext } from "./App";
+import Table from "@app/components/Table";
 
 const Main = () => {
+  const { errorRange, seed, region } = useContext<any>(AppContext);
   const [pages, setPages] = useState(1);
-  //TODO: probably will come from context
-  const [errorCount, setErrorCount] = useState(0);
-  const [seed, setSeed] = useState(0);
-  const [region, setRegion] = useState<any>();
 
   const finalData: any = [];
   faker.seed(Number(seed));
@@ -117,13 +116,13 @@ const Main = () => {
       let float = false;
       let errors: any;
 
-      if (Number.isInteger(errorCount)) {
+      if (Number.isInteger(errorRange)) {
         float = false;
-        errors = errorCount;
+        errors = errorRange;
       }
-      if (!Number.isInteger(errorCount)) {
+      if (!Number.isInteger(errorRange)) {
         float = true;
-        errors = errorCount + 0.5;
+        errors = errorRange + 0.5;
       }
 
       const inroduceErrors = (count: any) => {
@@ -168,7 +167,7 @@ const Main = () => {
     return postError;
   };
 
-  const renderEntries = () => {
+  const renderDatas = () => {
     for (let i = 0; i < pages; i++) {
       finalData.push(...createFakeDatas());
     }
@@ -176,9 +175,17 @@ const Main = () => {
     return addErrors(finalData);
   };
 
+  const handleScroll = (e: any) => {
+    if (
+      e.target.scrollHeight - e.target.scrollTop <=
+      e.target.clientHeight / 0.5
+    )
+      setPages(pages + 1);
+  };
+
   return (
     <div>
-      <div>Main</div>
+      <Table fakeDatas={renderDatas()} handleScroll={handleScroll} />
     </div>
   );
 };
