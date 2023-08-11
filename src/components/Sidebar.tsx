@@ -1,18 +1,22 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Counter from "./Counter";
 import { CounterType, Regions } from "@app/types/enums";
+import { AppContext } from "@app/pages/App";
 
 const Sidebar = () => {
-  const [errorRange, setErrorRange] = useState(0);
-  const [seed, setSeed] = useState(0);
-  const [region, setRegion] = useState<Regions | string>();
+  const { errorRange, setErrorRange, seed, setSeed, region, setRegion } =
+    useContext<any>(AppContext);
+
+  // const [errorRange, setErrorRange] = useState(0);
+  // const [seed, setSeed] = useState(0);
+  // const [region, setRegion] = useState<Regions | string>();
 
   const handleSliderChange = (event: any) => {
     setErrorRange(+event.target.value);
   };
 
   return (
-    <div className="h-full bg-white w-1/4 p-6 border-l border-gray-300">
+    <div className="h-full bg-white w-[20%] p-6 border-l border-gray-300">
       <div id="test" className="flex mb-4 text-2xl font-semibold">
         BULKFAKE
       </div>
