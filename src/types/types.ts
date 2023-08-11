@@ -5,3 +5,8 @@ export interface CounterProps {
   setCount: React.Dispatch<React.SetStateAction<number>>;
   counterType: CounterType;
 }
+
+export interface TableProps {
+  fakeDatas: [];
+  handleScroll: void;
+}
