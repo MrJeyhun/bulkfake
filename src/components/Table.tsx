@@ -5,11 +5,11 @@ const Table = (props: TableProps) => {
   console.log("fakeDatas", fakeDatas);
 
   return (
-    <div
-      className="flex flex-col h-[95vh] overflow-scroll"
-      onScroll={() => console.log("works here")}
-    >
-      <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
+    <div className="flex flex-row h-[95vh]">
+      <div
+        className="overflow-x-auto overflow-scroll sm:-mx-6 lg:-mx-8"
+        onScroll={handleScroll}
+      >
         <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
           <div className="overflow-hidden">
             <table className="min-w-full text-left text-sm font-light">
@@ -19,7 +19,7 @@ const Table = (props: TableProps) => {
                     #
                   </th>
                   <th scope="col" className="px-6 py-4">
-                    Id
+                    ID
                   </th>
                   <th scope="col" className="px-6 py-4">
                     Full name
