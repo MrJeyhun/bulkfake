@@ -2,16 +2,17 @@ import Sidebar from "@app/components/Sidebar";
 import Main from "./Main";
 import { createContext, useState } from "react";
 import { Regions } from "@app/types/enums";
+import { FakedData, AppContextShape } from "@app/types/types";
 
-export const AppContext = createContext("");
+export const AppContext = createContext<AppContextShape | null>(null);
 
 const App = () => {
   const [errorRange, setErrorRange] = useState(0);
   const [seed, setSeed] = useState(0);
   const [region, setRegion] = useState<Regions | string>(Regions.US);
-  const [csvData, setCsvData] = useState([]);
+  const [csvData, setCsvData] = useState<FakedData[]>([]);
 
-  const contextValues: any = {
+  const contextValues: AppContextShape = {
     errorRange,
     setErrorRange,
     seed,

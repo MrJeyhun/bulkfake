@@ -1,17 +1,25 @@
-import { useContext, useEffect, useState } from "react";
+import {
+  ChangeEvent,
+  UIEventHandler,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { createFakeData } from "@app/utils";
 import { faker } from "@faker-js/faker";
 import { FakerTypes, RegionCode, Regions } from "@app/types/enums";
 import { AppContext } from "./App";
 import Table from "@app/components/Table";
+import { AppContextShape, FakedData } from "@app/types/types";
 
 const Main = () => {
-  const { errorRange, seed, region, csvData, setCsvData } =
-    useContext<any>(AppContext);
+  const { errorRange, seed, region, csvData, setCsvData } = useContext(
+    AppContext
+  ) as AppContextShape;
   const [pages, setPages] = useState(1);
-  let timeoutId: any;
+  let timeoutId: number;
 
-  const finalData: any = [];
+  const finalData: FakedData[] = [];
   faker.seed(Number(seed));
 
   const newFakeData = () => {
@@ -50,7 +58,7 @@ const Main = () => {
     return Array.from({ length: entriesCount }, newFakeData);
   };
 
-  const scrambleString = (str: string, type: any) => {
+  const scrambleString = (str: string, type: FakerTypes) => {
     const iterations = [str];
 
     const removeCharacter = () => {
@@ -73,7 +81,7 @@ const Main = () => {
 
       const randomStreet = faker.address.street();
 
-      const randomCharacter = (s: any) =>
+      const randomCharacter = (s: string) =>
         faker.datatype.number({ max: s.length - 3 });
       let charToAdd;
 
@@ -119,15 +127,15 @@ const Main = () => {
     return iterations[iterations.length - 1];
   };
 
-  const addErrors = (input: any) => {
-    const postError = input.slice(1).map((el: any) => {
+  const addErrors = (input: FakedData[]) => {
+    const postError = input.slice(1).map((el: FakedData) => {
       const iterID = [el.id];
       const iterName = [el.fullName];
       const iterAddress = [el.address];
       const iterPhone = [el.phone];
 
       let float = false;
-      let errors: any;
+      let errors: number = 0;
 
       if (Number.isInteger(errorRange)) {
         float = false;
@@ -138,7 +146,7 @@ const Main = () => {
         errors = errorRange + 0.5;
       }
 
-      const inroduceErrors = (count: any) => {
+      const inroduceErrors = (count: number) => {
         for (let i = 0; i < count; i++) {
           const lastIterationID = iterID[iterID.length - 1];
           const lastIterationName = iterName[iterName.length - 1];
@@ -146,20 +154,37 @@ const Main = () => {
           const lastIterationPhone = iterPhone[iterPhone.length - 1];
           const fieldToChange = faker.datatype.number({ max: 3 });
 
-          if (fieldToChange === 0)
-            iterID.push(scrambleString(lastIterationID, "id").substring(0, 40));
-          if (fieldToChange === 1)
-            iterName.push(
-              scrambleString(lastIterationName, "name").substring(0, 40)
-            );
-          if (fieldToChange === 2)
-            iterAddress.push(
-              scrambleString(lastIterationAddress, "address").substring(0, 40)
-            );
-          if (fieldToChange === 3)
-            iterPhone.push(
-              scrambleString(lastIterationPhone, "num").substring(0, 40)
-            );
+          switch (fieldToChange) {
+            case 0:
+              iterID.push(
+                scrambleString(lastIterationID, FakerTypes.ID).substring(0, 40)
+              );
+              break;
+            case 1:
+              iterName.push(
+                scrambleString(lastIterationName, FakerTypes.NAME).substring(
+                  0,
+                  40
+                )
+              );
+              break;
+            case 2:
+              iterAddress.push(
+                scrambleString(
+                  lastIterationAddress,
+                  FakerTypes.ADDRESS
+                ).substring(0, 40)
+              );
+              break;
+            case 3:
+              iterPhone.push(
+                scrambleString(lastIterationPhone, FakerTypes.NUMBER).substring(
+                  0,
+                  40
+                )
+              );
+              break;
+          }
         }
       };
 
@@ -180,14 +205,14 @@ const Main = () => {
     return postError;
   };
 
-  const renderDatas = () => {
+  const renderDatas = (): FakedData[] => {
     for (let i = 0; i < pages; i++) {
       finalData.push(...createFakeDatas());
     }
     return addErrors(finalData);
   };
 
-  const setCsvDataWithDelay = (data: any) => {
+  const setCsvDataWithDelay = (data: FakedData[]) => {
     clearTimeout(timeoutId);
 
     timeoutId = setTimeout(() => {
@@ -195,9 +220,13 @@ const Main = () => {
     }, 2000);
   };
 
-  const handleScroll = (e: any) => {
+  const handleScroll = (e: React.UIEvent<HTMLElement>) => {
     setCsvDataWithDelay(finalData);
-    if (e.target.scrollHeight - e.target.scrollTop <= e.target.clientHeight) {
+
+    if (
+      e.currentTarget.scrollHeight - e.currentTarget.scrollTop <=
+      e.currentTarget.clientHeight
+    ) {
       setPages(pages + 1);
     }
   };
