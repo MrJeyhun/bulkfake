@@ -1,14 +1,7 @@
-import { AppContext } from "@app/pages/App";
 import { TableProps } from "@app/types/types";
-import { useContext, useEffect } from "react";
 
 const Table = (props: TableProps) => {
   const { fakeDatas, handleScroll } = props;
-  const { csvData } = useContext<any>(AppContext);
-
-  useEffect(() => {
-    csvData.current = fakeDatas;
-  }, [fakeDatas]);
 
   return (
     <div className="flex flex-row h-[95vh]">
