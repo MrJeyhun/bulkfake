@@ -1,4 +1,4 @@
-import { TableProps } from "@app/types/types";
+import { FakedData, TableProps } from "@app/types/types";
 
 const Table = (props: TableProps) => {
   const { fakeDatas, handleScroll } = props;
@@ -32,7 +32,7 @@ const Table = (props: TableProps) => {
                 </tr>
               </thead>
               <tbody>
-                {fakeDatas.map((el: any, i) => (
+                {fakeDatas.map((el: FakedData, i) => (
                   <tr
                     key={i}
                     className="border-b transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-neutral-500 dark:hover:bg-neutral-600"

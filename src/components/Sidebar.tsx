@@ -1,9 +1,10 @@
-import { useContext } from "react";
+import { ChangeEvent, useContext } from "react";
 import Counter from "./Counter";
 import { CounterType, Regions } from "@app/types/enums";
 import { AppContext } from "@app/pages/App";
 import { faker } from "@faker-js/faker";
 import { CSVLink } from "react-csv";
+import { AppContextShape } from "@app/types/types";
 
 const Sidebar = () => {
   const {
@@ -14,9 +15,9 @@ const Sidebar = () => {
     region,
     setRegion,
     csvData,
-  } = useContext<any>(AppContext);
+  } = useContext(AppContext) as AppContextShape;
 
-  const handleSliderChange = (event: any) => {
+  const handleSliderChange = (event: ChangeEvent<HTMLInputElement>) => {
     setErrorRange(+event.target.value);
   };
 

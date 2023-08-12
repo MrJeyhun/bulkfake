@@ -1,4 +1,4 @@
-import { CounterType } from "./enums";
+import { CounterType, Regions } from "./enums";
 
 export interface CounterProps {
   count: number;
@@ -7,6 +7,24 @@ export interface CounterProps {
 }
 
 export interface TableProps {
-  fakeDatas: [];
-  handleScroll: any;
+  fakeDatas: FakedData[];
+  handleScroll: React.UIEventHandler<HTMLDivElement>;
+}
+
+export interface FakedData {
+  id: string;
+  fullName: string;
+  address: string;
+  phone: string;
+}
+
+export interface AppContextShape {
+  errorRange: number;
+  seed: number;
+  region: Regions | string;
+  csvData: FakedData[];
+  setErrorRange: React.Dispatch<React.SetStateAction<number>>;
+  setSeed: React.Dispatch<React.SetStateAction<number>>;
+  setRegion: React.Dispatch<React.SetStateAction<string>>;
+  setCsvData: React.Dispatch<React.SetStateAction<FakedData[]>>;
 }
