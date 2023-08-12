@@ -35,7 +35,7 @@ const Table = (props: TableProps) => {
                 {fakeDatas.map((el: FakedData, i) => (
                   <tr
                     key={i}
-                    className="border-b transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-neutral-500 dark:hover:bg-neutral-600"
+                    className="border-b transition duration-300 ease-in-out dark:border-neutral-500"
                   >
                     <th
                       className="whitespace-nowrap px-6 py-4 font-medium"
