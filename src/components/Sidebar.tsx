@@ -75,7 +75,7 @@ const Sidebar = () => {
             type="range"
             step="0.5"
             min="0"
-            max="1000"
+            max="10"
             value={errorRange}
             onChange={handleSliderChange}
             className="w-full border-[0px] h-[5px] accent-[seagreen]"
