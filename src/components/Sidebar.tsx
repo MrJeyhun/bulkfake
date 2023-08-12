@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import Counter from "./Counter";
 import { CounterType, Regions } from "@app/types/enums";
 import { AppContext } from "@app/pages/App";
@@ -15,11 +15,6 @@ const Sidebar = () => {
     setRegion,
     csvData,
   } = useContext<any>(AppContext);
-
-  useEffect(() => {
-    console.log("csvData is ARRAY: ", Array.isArray(csvData.current));
-    console.log("CSVDATA: ", csvData.current);
-  });
 
   const handleSliderChange = (event: any) => {
     setErrorRange(+event.target.value);
@@ -110,7 +105,7 @@ const Sidebar = () => {
       </div>
       <div className="flex items-end h-1/4">
         <CSVLink
-          data={csvData.current && csvData.current}
+          data={csvData}
           filename={"BulkFake.csv"}
           className="w-full bg-[#16ad65] text-white py-2 px-4 rounded hover:bg-green-600 focus:outline-none focus:ring focus:ring-blue-300 rounded-[5px] transition ease-out delay-120"
         >

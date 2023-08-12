@@ -1,6 +1,6 @@
 import Sidebar from "@app/components/Sidebar";
 import Main from "./Main";
-import { createContext, useRef, useState } from "react";
+import { createContext, useState } from "react";
 import { Regions } from "@app/types/enums";
 
 export const AppContext = createContext("");
@@ -9,7 +9,7 @@ const App = () => {
   const [errorRange, setErrorRange] = useState(0);
   const [seed, setSeed] = useState(0);
   const [region, setRegion] = useState<Regions | string>(Regions.US);
-  const csvData = useRef();
+  const [csvData, setCsvData] = useState([]);
 
   const contextValues: any = {
     errorRange,
@@ -19,6 +19,7 @@ const App = () => {
     region,
     setRegion,
     csvData,
+    setCsvData,
   };
 
   return (
