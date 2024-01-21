@@ -33,7 +33,7 @@
 
 ##  Overview
 
-Live Demo: 'https://bulk-fake.vercel.app/'
+**[Live Demo](https://bulk-fake.vercel.app/)**
 
 
 ##  Repository Structure
@@ -75,12 +75,6 @@ Live Demo: 'https://bulk-fake.vercel.app/'
 
 ##  Getting Started
 
-***Requirements***
-
-Ensure you have the following dependencies installed on your system:
-
-* **TypeScript**: `version x.y.z`
-
 ###  Installation
 
 1. Clone the bulkfake repository:
@@ -106,10 +100,6 @@ npm run dev
 ##  Contributing
 
 Contributions are welcome! Here are several ways you can contribute:
-
-- **[Submit Pull Requests](https://github/MrJeyhun/bulkfake/blob/main/CONTRIBUTING.md)**: Review open PRs, and submit your own PRs.
-- **[Join the Discussions](https://github/MrJeyhun/bulkfake/discussions)**: Share your insights, provide feedback, or ask questions.
-- **[Report Issues](https://github/MrJeyhun/bulkfake/issues)**: Submit bugs found or log feature requests for Bulkfake.
 
 <details closed>
     <summary>Contributing Guidelines</summary>
