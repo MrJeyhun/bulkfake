@@ -35,7 +35,6 @@
 
 **[Live Demo](https://bulk-fake.vercel.app/)**
 
-
 ##  Repository Structure
 
 ```sh
